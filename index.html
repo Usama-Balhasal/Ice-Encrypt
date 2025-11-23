@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice Encrypt - Secure Encryption & Decryption</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+        integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="ice-particles"></div>
+
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="nav-logo-link">
+                    <img src="favicon.png" alt="Logo" class="nav-logo">
+                </a>
+                <a href="index.html" class="nav-title">Ice Encrypt</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about-me.html" class="nav-link">About Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Secure AES Encryption & Decryption</h1>
+            <p class="subtitle">Professional encryption tools for your security needs</p>
+        </header>
+
+        <div class="main-card">
+            <!-- Custom Key Option - Available for both Text and File modes -->
+            <div class="custom-key-section">
+                <div class="custom-key-option">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="useCustomKey" class="custom-key-checkbox">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-label">Use custom encryption key</span>
+                    </label>
+                </div>
+                
+                <!-- Password Section (initially hidden) -->
+                <div id="passwordSection" class="password-section hidden">
+                    <label for="encryptionKey" class="label">Custom Encryption Key/Password:</label>
+                    <div class="password-input-container">
+                        <input type="password" id="encryptionKey" class="password-input"
+                            placeholder="Enter your custom encryption key..." autocomplete="off">
+                        <button type="button" id="passwordToggle" class="password-toggle" title="Show/Hide password">
+                            👁️
+                        </button>
+                    </div>
+                    <div id="passwordStrength" class="password-strength">
+                        <div class="strength-indicator">
+                            <span class="strength-text">Password strength: </span>
+                            <div class="strength-bars">
+                                <span class="strength-bar"></span>
+                                <span class="strength-bar"></span>
+                                <span class="strength-bar"></span>
+                            </div>
+                            <span id="strengthLabel" class="strength-label">Not evaluated</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Built-in Key Info (initially visible) -->
+                <div id="builtinKeyInfo" class="builtin-key-info">
+                    <div class="info-box">
+                        <span class="info-icon">🔐</span>
+                        <div class="info-content">
+                            <span class="info-title">Using built-in encryption key</span>
+                            <span class="info-description">The application's built-in secret key will be used for encryption/decryption</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mode-toggle">
+                <button id="textModeBtn" class="mode-btn active" data-mode="text">📝 Text</button>
+                <button id="fileModeBtn" class="mode-btn" data-mode="file">📁 File</button>
+            </div>
+
+            <div id="textModeSection" class="mode-section active">
+                <div class="input-section">
+                    <label for="textInput" class="label">Enter Your Text:</label>
+                    <textarea id="textInput" class="text-input" placeholder="Type or paste your text here..."
+                        rows="6"></textarea>
+                    <div id="textError" class="error-message hidden" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div id="fileModeSection" class="mode-section">
+                <div class="file-input-section">
+                    <label class="label">Select Files:</label>
+                    <div class="file-drop-zone" id="fileDropZone">
+                        <div class="file-drop-content">
+                            <span class="file-drop-icon">📂</span>
+                            <p>Drag & drop files here or <span class="file-browse-link">browse</span></p>
+                            <input type="file" id="fileInput" multiple style="display: none;">
+                            <small class="file-drop-hint">Max file size: 2GB • Batch processing supported</small>
+                        </div>
+                    </div>
+                    <div id="fileList" class="file-list"></div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="encryptBtn" class="btn btn-encrypt">
+                    <span class="btn-icon">🔐</span>
+                    <span id="encryptBtnText">Encrypt</span>
+                </button>
+                <button id="decryptBtn" class="btn btn-decrypt">
+                    <span class="btn-icon">🔓</span>
+                    <span id="decryptBtnText">Decrypt</span>
+                </button>
+            </div>
+
+            <div id="progressSection" class="progress-section hidden">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progressStatus">Processing...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+                <button id="cancelBtn" class="btn-cancel">❌ Cancel</button>
+            </div>
+
+            <div id="textOutputSection" class="output-section">
+                <div class="output-header">
+                    <label class="label">Result:</label>
+                    <button id="copyBtn" class="btn-copy" title="Copy to clipboard">
+                        📋 Copy
+                    </button>
+                </div>
+                <textarea id="textOutput" class="text-output" placeholder="Your result will appear here..." rows="6"
+                    readonly></textarea>
+            </div>
+
+            <div id="fileOutputSection" class="file-output-section hidden">
+                <div class="output-header">
+                    <label class="label">Processed Files:</label>
+                    <button id="downloadAllBtn" class="btn-download-all" title="Download all files">
+                        📥 Download All
+                    </button>
+                </div>
+                <div id="fileOutputList" class="file-output-list"></div>
+            </div>
+        </div>
+
+        <div class="history-card">
+            <div class="history-header">
+                <h2 class="history-title">📜 History</h2>
+                <button id="clearHistoryBtn" class="btn-clear">Clear History</button>
+            </div>
+            
+            <div class="history-controls">
+                <input type="text" id="searchHistory" class="search-input" placeholder="Search history..." aria-label="Search history entries">
+                <div class="theme-toggle" title="Toggle Dark/Light Mode">
+                    <span class="theme-label-icon">☀️</span>
+                    <label class="switch">
+                        <input type="checkbox" id="themeSwitch" aria-label="Dark Mode Toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="theme-label-icon">🌙</span>
+                </div>
+            </div>
+            <div id="historyList" class="history-list">
+                <p class="history-empty">No history yet. Start encrypting or decrypting!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>Secure AES Encryption & Decryption Made by VLX Soma</p>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/usama-balhasal/" target="_blank" class="social-link" title="LinkedIn">
+                    💼 LinkedIn
+                </a>
+                <a href="https://www.instagram.com/vlx_soma/" target="_blank" class="social-link" title="Instagram">
+                    📷 Instagram
+                </a>
+                <a href="https://www.facebook.com/usama.balhalsal.05" target="_blank" class="social-link" title="Facebook">
+                    👤 Facebook
+                </a>
+                <a href="https://github.com/Usama-Balhasal" target="_blank" class="social-link" title="GitHub">
+                    🐙 GitHub
+                </a>
+            </div>
+        </div>
+    </footer>
+<script src="env.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>
