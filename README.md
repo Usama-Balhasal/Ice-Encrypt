@@ -53,4 +53,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Disclaimer
 
-Always keep backups of important data and use strong encryption keys.
+- Always keep backups of important data and use strong encryption keys.
+- Initial layout generated with AI, functionality implemented manually
