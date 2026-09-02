@@ -40,7 +40,7 @@ Secure AES Encryption & Decryption web application built with HTML, CSS, and Jav
 
 - LinkedIn: [Usama Balhasal](https://www.linkedin.com/in/usama-balhasal/)
 - Instagram: [@vlx_soma](https://www.instagram.com/vlx_soma/)
-- Facebook: [Usama Balhalsal](https://www.facebook.com/usama.balhalsal.05)
+- Facebook: [Usama Balhasal](https://www.facebook.com/usama.balhasal.05/)
 - GitHub: [@vlxb](https://github.com/Usama-Balhasal)
 
 ## Contributing
