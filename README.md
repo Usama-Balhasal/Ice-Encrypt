@@ -36,7 +36,7 @@ Secure AES Encryption & Decryption web application built with HTML, CSS, and Jav
 
 ## Author
 
-**VLX Soma**
+**Usama Balhasal**
 
 - LinkedIn: [Usama Balhasal](https://www.linkedin.com/in/usama-balhasal/)
 - Instagram: [@vlx_soma](https://www.instagram.com/vlx_soma/)
